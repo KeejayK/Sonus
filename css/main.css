@@ -149,28 +149,20 @@ body {
     width: 50%;
     height: 65%;
     margin: auto;
-    padding: 2rem;
+    padding: 3rem;
+    background: linear-gradient(90deg, rgba(215, 103, 110, 0.789) 0%, rgba(65, 33, 148, 0.712) 89%);
+    border-radius: 1.5rem; 
     display: flex;
     flex-direction: column;
-    /* background : #f6e8eabb; */
-    /* background:#f6e8ea; */
-    /* /* background: rgb(224,91,100);
-    background: linear-gradient(90deg, rgba(224,91,100,1) 0%, rgba(41,14,110,1) 89%); */
-    border-radius: 1.5rem; 
-    justify-content: flex-end;
-}
-
-.modal .modalHeader {
-    display: flex;
     justify-content: flex-start;
 }
 
-.modal .modalHeader h1 {
+.modalBody h1 {
     font-size: 2.5rem;
+    overflow-wrap: break-word;
 }
-
-.modal .modalBody p {
-    font-weight: bold;
+.modalBody h2 {
+    font-size: 1.4rem;
     overflow-wrap: break-word;
 }
 
