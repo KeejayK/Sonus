@@ -42,7 +42,7 @@ function App() {
       window.location.href = ''
   }
 
-
+  //Need to find a new naming scheme 
   const [searchKey1, setSearchKey1] = useState("")
   const [searchKey2, setSearchKey2] = useState("")
   const [playlist1, setPlaylist1] = useState([])
@@ -54,7 +54,7 @@ function App() {
   const [matchesInfo, setMatchesInfo] = useState([])
   
  
-  const getName1= async (code) => {
+  const getName = async (code) => {
     const {data} = await axios.get(`https://api.spotify.com/v1/playlists/${code}`, {
       headers: {
           Accept: 'application/json',
@@ -62,93 +62,63 @@ function App() {
           'Content-Type': 'application/json',
       },
     })
-    setPlaylistName1(data)
+    return(data)
   }
 
-  const getName2 = async (code) => {
-    const {data} = await axios.get(`https://api.spotify.com/v1/playlists/${code}`, {
-      params: {
-        limit: 100,
-        offset: 0,
-      },
-      headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-      },
-    })
-    setPlaylistName2(data)
+  const getTracks = async (code) => {
+
+    let playlist = []
+    let i = 0
+    while (true){
+      let offset = i * 100
+      const {data} = await axios.get(`https://api.spotify.com/v1/playlists/${code}/tracks`, {
+        params: {
+          limit: 100,
+          offset: offset,
+        },
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+      })
+      if(data.items.toString() == [].toString()) {
+        break;
+      }
+      for (let song in data.items) {
+        if (data.items[song].track !== null) {
+          playlist.push(data.items[song])
+        }
+      }
+      i++
+    }
+
+    return (playlist)
   }
 
   const searchPlaylist1 = async (e) => {
     
     e.preventDefault()
 
-    const code = searchKey1.replace('https://open.spotify.com/playlist/', '').split('?')[0]
-    let playlist = []
-    let i = 0
-    while (true){
-      let offset = i * 100
-      const {data} = await axios.get(`https://api.spotify.com/v1/playlists/${code}/tracks`, {
-        params: {
-          limit: 100,
-          offset: offset,
-        },
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-      })
-      if(data.items.toString() == [].toString()) {
-        break;
-      }
-      for (let song in data.items) {
-        if (data.items[song].track !== null) {
-          playlist.push(data.items[song])
-        }
-      }
-      i++
-    }
+    let code = searchKey1.replace('https://open.spotify.com/playlist/', '').split('?')[0]
+    let playlist = await getTracks(code)
     console.log('playlist 1:', playlist)
 
 
     setPlaylist1(playlist)
-    getName1(code)
-
-
+    let data = await getName(code)
+    setPlaylistName1(data)
   }
 
   const searchPlaylist2 = async (e) => {
     e.preventDefault()
 
-    const code = searchKey2.replace('https://open.spotify.com/playlist/', '').split('?')[0]
-    let playlist = []
-    let i = 0
-    while (true){
-      let offset = i * 100
-      const {data} = await axios.get(`https://api.spotify.com/v1/playlists/${code}/tracks`, {
-        params: {
-          limit: 100,
-          offset: offset,
-        },
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-      })
-      if(data.items.toString() == [].toString()) {
-        break;
-      }
-      for (let song in data.items) {
-        if (data.items[song].track !== null) {
-          playlist.push(data.items[song])
-        }
-      }
-      i++
-    }
+    let code = searchKey2.replace('https://open.spotify.com/playlist/', '').split('?')[0]
+    let playlist = await getTracks(code)
     console.log('playlist 2:', playlist)
-    setPlaylist2(playlist)
-    getName2(code)
 
-    
+
+    setPlaylist2(playlist)
+    let data = await getName(code)
+    setPlaylistName2(data)
   }
 
   const getArtists = (song) => {
@@ -162,39 +132,28 @@ function App() {
   }
 
 
+  const playlistMapTemplate = song => (
+    <div className = 'song'>
+      {song.track.album.images.length ? <img height = {'45vh'} src = {song.track.album.images[1].url} alt=''/> : <div> No Image </div>}
+      <div className='songLabel'>
+        <h1 className='songName'>
+          {song.track.name}
+        </h1>
+        
+        <h1 className = 'artist'>
+          {getArtists(song)}
+        </h1>
+      </div>
+    </div>
+  )
+
   const renderPlaylist1 = () => {
     
-    return playlist1.map(song => (
-        <div className = 'song'>
-          {song.track.album.images.length ? <img height = {'45vh'} src = {song.track.album.images[1].url} alt=''/> : <div> No Image </div>}
-          <div className='songLabel'>
-            <h1 className='songName'>
-              {song.track.name}
-            </h1>
-            
-            <h1 className = 'artist'>
-              {getArtists(song)}
-            </h1>
-          </div>
-        </div>
-    ))
+    return playlist1.map(playlistMapTemplate)
   } 
 
   const renderPlaylist2 = () => {
-    return playlist2.map(song => (
-      <div className = 'song'>
-        {song.track.album.images.length ? <img height = {'45vh'} src = {song.track.album.images[1].url} alt=''/> : <div> No Image </div>}
-        <div className='songLabel'>
-            <h1 className='songName'>
-              {song.track.name}
-            </h1>
-            
-            <h1 className = 'artist'>
-              {getArtists(song)}
-            </h1>
-          </div>
-      </div>
-    ))
+    return playlist2.map(playlistMapTemplate)
   } 
 
   const matchSongs = () => {
@@ -247,32 +206,9 @@ function App() {
 
 
 
-
-
-
-
-
-
-
-
-
-
   const renderMatches = () => {
 
-    return matches.map(song => (
-      <div className = 'song'>
-        {song.track.album.images.length ? <img height = {'45vh'} src = {song.track.album.images[1].url} alt=''/> : <div> No Image </div>}
-        <div className='songLabel'>
-            <h1 className='songName'>
-              {song.track.name}
-            </h1>
-            
-            <h1 className = 'artist'>
-              {getArtists(song)}
-            </h1>
-          </div>
-      </div>
-    ))
+    return matches.map(playlistMapTemplate)
   }
    
   const searchProfile = async () => {
@@ -307,17 +243,17 @@ function App() {
   }
 
 
-  const test = () => {  
-    // console.log('Playlist 1:')
-    // console.log(playlist1)
-    // console.log('Playlist 2:')
-    // console.log(playlist2)
-    // console.log('Matches:')
-    // console.log(matches)
-    // console.log('profile:')
-    // searchProfile()
-    console.log(playlistName1)
-  }
+  // const test = () => {  
+  //   console.log('Playlist 1:')
+  //   console.log(playlist1)
+  //   console.log('Playlist 2:')
+  //   console.log(playlist2)
+  //   console.log('Matches:')
+  //   console.log(matches)
+  //   console.log('profile:')
+  //   searchProfile()
+  //   console.log(playlistName1)
+  // }
 
 
   const makePlaylist = async () => {
