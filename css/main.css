@@ -1,0 +1,307 @@
+::-webkit-scrollbar {
+    width: 10px;
+  }
+
+::-webkit-scrollbar-track {
+background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+background: #555; 
+}
+
+body {
+    font-size: 100%;
+}
+
+.main-container {
+    background-image: url('../images/sonusBackground2.png');
+    background-size: cover;
+    height: 100vh;
+    /* overflow: hidden; */
+    font-family: Calibri, sans-serif;
+    padding-left: 8rem;
+    padding-right: 8rem;
+    color: #F6E8EA;
+
+}
+
+.content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.keji{
+    width: 3rem;
+    height: 3rem;
+    position: fixed;
+    bottom: 1rem;
+    right: 8rem;
+}
+
+.mainNavbar {
+    font-weight: bold;
+    border-bottom: .3rem solid #F6E8EA;     
+
+}
+
+.topNavbar {
+    display: flex;
+    align-items: center;    
+}
+
+.topNavbar h1 {
+    font-size: 4rem;
+    text-shadow: .1rem .1rem .1rem black;
+    user-select: none;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+}
+
+.Spot {
+    padding-right: 0;
+    height: 3rem;
+    width: auto;
+    margin-left: auto;
+    background-color: transparent;
+    border-color: transparent;
+    background-color: #f6e8ea;
+    border-radius: 2rem;
+    border: none;
+    display:flex;
+    align-items: center;
+    color: #27187e;
+    cursor: pointer;
+}
+
+.Spot .spotifyText {
+    margin-right: 1rem;
+    font-size: 1.5rem;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: Calibri, sans-serif;
+    
+}
+.Spot img { 
+    height: 2.5rem;
+    margin-right: .3rem;
+    margin-top: .1rem;
+    margin-bottom: .1rem;
+}
+
+
+.bottomNavbar {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding:0;
+    
+}
+
+.bottomNavbar h1 {  
+    font-size: 2rem;
+    padding:0;
+    margin:0;
+
+}
+
+.about {
+    margin-left: auto;
+    box-sizing: border-box;
+    font-size: 1.5rem;
+    color: #F6E8EA;
+    background-color: transparent;
+    border: none;
+    
+}
+
+.about .aboutButton {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #F6E8EA;
+    font-weight: bold;
+    font-family: Calibri, sans-serif;
+    cursor: pointer;
+}
+
+.backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: hsla(0, 0%, 0%, 0.774);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.modal {
+    width: 50%;
+    height: 65%;
+    margin: auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    /* background : #f6e8eabb; */
+    /* background:#f6e8ea; */
+    /* /* background: rgb(224,91,100);
+    background: linear-gradient(90deg, rgba(224,91,100,1) 0%, rgba(41,14,110,1) 89%); */
+    border-radius: 1.5rem; 
+    justify-content: flex-end;
+}
+
+.modal .modalHeader {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.modal .modalHeader h1 {
+    font-size: 2.5rem;
+}
+
+.modal .modalBody p {
+    font-weight: bold;
+    overflow-wrap: break-word;
+}
+
+.modalButton {
+    background: #F6E8EA;
+    border-radius: 1rem;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #27187e;
+    cursor: pointer;
+    height: 2rem;
+    width: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1rem;
+}
+
+.search {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 2%;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
+.results {
+    height: 60%;   
+    /* background-color: #f6e8ea4d; */
+    /* background-color: rgba(246, 232, 234, 0.74); */
+    /* background-color: rgba(235, 81, 114, 0.753); */
+    /* border-radius: 1rem; */
+    display: flex;
+    flex-direction: column;
+    /* color:#27187e; */
+}
+
+
+.results .resultsHeader {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 2%;
+    height: 10%;
+    padding: 0;
+    margin: 0;
+}
+
+.results .resultsHeader h1 {
+    font-size: 1.5rem;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0;
+    margin: 0;
+}
+
+.results .resultsContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 2%;
+    height: 90%;
+    padding: 0;
+    margin: 0;
+}
+
+.results .resultsContent .playlists {
+    display: grid;
+    height: 100%;
+    grid-gap: 1%;
+    justify-content: start;
+    align-content: start;
+    /* grid-auto-flow: row; */
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+
+}
+
+.inputText {
+    box-sizing: border-box; 
+}
+
+
+.song {
+    display: grid;
+    grid-auto-flow: column;
+    font-size: 1.1rem;
+    justify-self: start;
+    height: 100%;
+}
+.songLabel {
+    margin-left: 1rem;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 0%;
+    padding: 0;
+    margin: 0;
+    padding: 0;
+    margin-left: .4rem;
+}
+
+.songLabel h1 {
+    font-weight: normal;
+    font-size: 1rem;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0;
+    margin: 0;
+}
+
+
+.songLabel .songName {
+    font-weight: normal;
+    font-size: 1rem;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0;
+    margin: 0;
+}
+
+.songLabel .artist {
+    font-size: .9rem;
+    font-weight: lighter;
+    display: inline-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    
+}
